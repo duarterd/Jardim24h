@@ -4,744 +4,449 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços de Jardinagem | Grande Porto | VerdePorto</title>
-    <meta name="description" content="Serviços profissionais de jardinagem no Grande Porto com preços transparentes. Manutenção, poda, rega e mais.">
+    <meta name="description" content="Serviços profissionais de jardinagem no Grande Porto. Marque online o seu serviço.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #1a1a1a; background: #f8faf8; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background: #f8faf8;
-        }
+        header { background: #1b4332; color: white; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.15); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: #95d5b2; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { color: white; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: #95d5b2; }
+        .btn-header { background: #2d6a4f; color: white; padding: 0.6rem 1.4rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
+        .btn-header:hover { background: #40916c; }
 
-        /* Header */
-        header {
-            background: #1b4332;
-            color: white;
-            padding: 1rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: #95d5b2;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #95d5b2;
-        }
-
-        .btn-header {
-            background: #2d6a4f;
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .btn-header:hover {
-            background: #40916c;
-        }
-
-        /* Hero */
         .hero {
             background: linear-gradient(rgba(27, 67, 50, 0.75), rgba(27, 67, 50, 0.85)),
                         url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            color: white;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
+            color: white; min-height: 85vh; display: flex; align-items: center; padding: 0 5%;
         }
+        .hero-content { max-width: 700px; }
+        .hero h1 { font-size: 3.1rem; line-height: 1.2; margin-bottom: 1.2rem; }
+        .hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
+        .btn-primary { display: inline-block; background: #95d5b2; color: #1b4332; padding: 1rem 2.2rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-primary:hover { background: #b7e4c7; transform: translateY(-3px); }
 
-        .hero-content {
-            max-width: 700px;
-        }
+        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title h2 { font-size: 2.3rem; color: #1b4332; margin-bottom: 0.8rem; }
+        .section-title p { color: #555; max-width: 600px; margin: 0 auto; }
 
-        .hero h1 {
-            font-size: 3.2rem;
-            line-height: 1.2;
-            margin-bottom: 1.2rem;
+        /* Booking Section */
+        .booking-section { background: #e8f5e9; }
+        .booking-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; }
+        .booking-form, .agenda-box { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .booking-form h3, .agenda-box h3 { color: #1b4332; margin-bottom: 1.5rem; font-size: 1.4rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 500; color: #333; font-size: 0.95rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem;
         }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .btn-submit { width: 100%; background: #1b4332; color: white; padding: 1rem; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; }
+        .btn-submit:hover { background: #2d6a4f; }
 
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+        .agenda-list { max-height: 420px; overflow-y: auto; }
+        .agenda-item {
+            background: #f8faf8; border-left: 4px solid #2d6a4f; padding: 1rem; margin-bottom: 0.8rem; border-radius: 0 8px 8px 0;
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
         }
-
-        .btn-primary {
-            display: inline-block;
-            background: #95d5b2;
-            color: #1b4332;
-            padding: 1rem 2.2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: #b7e4c7;
-            transform: translateY(-3px);
-        }
+        .agenda-item .info strong { color: #1b4332; display: block; }
+        .agenda-item .info span { font-size: 0.9rem; color: #555; }
+        .btn-delete { background: #dc3545; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .btn-delete:hover { background: #c82333; }
+        .empty-agenda { text-align: center; color: #888; padding: 2rem 0; }
+        .success-msg { background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
+        .error-msg { background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
 
         /* Services */
-        .section {
-            padding: 5rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.4rem;
-            color: #1b4332;
-            margin-bottom: 0.8rem;
-        }
-
-        .section-title p {
-            color: #555;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 4px solid #2d6a4f;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            color: #1b4332;
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-
-        .service-card p {
-            color: #555;
-            font-size: 0.95rem;
-            flex-grow: 1;
-        }
-
-        .price-tag {
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-            font-weight: 600;
-            color: #1b4332;
-            font-size: 1.15rem;
-        }
-
-        .price-tag span {
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: #666;
-            display: block;
-            margin-top: 0.3rem;
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border-top: 4px solid #2d6a4f; display: flex; flex-direction: column; }
+        .service-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .service-card h3 { color: #1b4332; margin-bottom: 0.8rem; font-size: 1.3rem; }
+        .service-card p { color: #555; font-size: 0.95rem; flex-grow: 1; }
+        .price-tag { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; font-weight: 600; color: #1b4332; font-size: 1.15rem; }
+        .price-tag span { font-size: 0.85rem; font-weight: 400; color: #666; display: block; margin-top: 0.3rem; }
 
         /* Pricing Table */
-        .pricing {
-            background: #e8f5e9;
-        }
+        .pricing { background: white; }
+        .pricing-table { width: 100%; border-collapse: collapse; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .pricing-table th { background: #1b4332; color: white; padding: 1.2rem; text-align: left; }
+        .pricing-table td { padding: 1.1rem 1.2rem; border-bottom: 1px solid #eee; }
+        .pricing-table tr:nth-child(even) { background: #f9fdf9; }
+        .price-value { font-weight: 600; color: #1b4332; }
+        .note { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #666; max-width: 700px; margin-left: auto; margin-right: auto; }
 
-        .pricing-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
+        .cta { background: linear-gradient(135deg, #1b4332, #2d6a4f); color: white; text-align: center; padding: 5rem 5%; }
+        .cta h2 { font-size: 2.3rem; margin-bottom: 1rem; }
+        .contact-info { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
 
-        .pricing-table th {
-            background: #1b4332;
-            color: white;
-            padding: 1.2rem;
-            text-align: left;
-            font-weight: 600;
-        }
+        footer { background: #0d2818; color: #ccc; padding: 3rem 5% 1.5rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 2rem; }
+        .footer-col h4 { color: white; margin-bottom: 1.2rem; }
+        .footer-col p, .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid #1b4332; font-size: 0.9rem; color: #888; }
 
-        .pricing-table td {
-            padding: 1.1rem 1.2rem;
-            border-bottom: 1px solid #eee;
-        }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
 
-        .pricing-table tr:last-child td {
-            border-bottom: none;
+        @media (max-width: 900px) {
+            .booking-container { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
-
-        .pricing-table tr:nth-child(even) {
-            background: #f9fdf9;
-        }
-
-        .price-value {
-            font-weight: 600;
-            color: #1b4332;
-            white-space: nowrap;
-        }
-
-        .note {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #666;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* About */
-        .about {
-            background: white;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 2.3rem;
-            color: #1b4332;
-            margin-bottom: 1.2rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .about-image {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Why us */
-        .why-us {
-            background: #f8faf8;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 1.5rem;
-        }
-
-        .feature-icon {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature h4 {
-            color: #1b4332;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Contact / CTA */
-        .cta {
-            background: linear-gradient(135deg, #1b4332, #2d6a4f);
-            color: white;
-            text-align: center;
-            padding: 5rem 5%;
-        }
-
-        .cta h2 {
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #0d2818;
-            color: #ccc;
-            padding: 3rem 5% 1.5rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-col h4 {
-            color: white;
-            margin-bottom: 1.2rem;
-            font-size: 1.15rem;
-        }
-
-        .footer-col p, .footer-col a {
-            color: #aaa;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .footer-col a:hover {
-            color: #95d5b2;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid #1b4332;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* Mobile */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-
-            nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #1b4332;
-                padding: 1rem;
-            }
-
-            nav.active {
-                display: block;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-header {
-                display: none;
-            }
-
-            .pricing-table {
-                font-size: 0.9rem;
-            }
-
-            .pricing-table th, .pricing-table td {
-                padding: 0.9rem 0.7rem;
-            }
+            .menu-toggle { display: block; }
+            nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #1b4332; padding: 1rem; }
+            nav.active { display: block; }
+            nav ul { flex-direction: column; gap: 1rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .btn-header { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                🌿 <span>VerdePorto</span>
-            </div>
-            <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">☰</button>
-            <nav>
-                <ul>
-                    <li><a href="#servicos">Serviços</a></li>
-                    <li><a href="#precos">Preços</a></li>
-                    <li><a href="#sobre">Sobre Nós</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-            <a href="#contacto" class="btn-header">Pedir Orçamento</a>
-        </div>
-    </header>
+<header>
+    <div class="header-container">
+        <div class="logo">🌿 <span>VerdePorto</span></div>
+        <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">☰</button>
+        <nav>
+            <ul>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#marcar">Marcar Serviço</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <a href="#marcar" class="btn-header">Marcar Agora</a>
+    </div>
+</header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Jardins bonitos e bem cuidados no Grande Porto</h1>
-            <p>Serviços profissionais de jardinagem residencial e comercial. Preços transparentes e orçamento gratuito.</p>
-            <a href="#contacto" class="btn-primary">Peça o seu orçamento gratuito</a>
-        </div>
-    </section>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Jardins bonitos e bem cuidados no Grande Porto</h1>
+        <p>Marque o seu serviço online de forma simples e rápida. Orçamento gratuito.</p>
+        <a href="#marcar" class="btn-primary">Marcar Serviço Agora</a>
+    </div>
+</section>
 
-    <!-- Serviços com preços -->
-    <section class="section" id="servicos">
-        <div class="section-title">
-            <h2>Os Nossos Serviços</h2>
-            <p>Preços de mercado atuais para o Grande Porto. Valores indicativos com IVA incluído.</p>
+<!-- SERVIÇOS -->
+<section class="section" id="servicos">
+    <div class="section-title">
+        <h2>Os Nossos Serviços</h2>
+        <p>Preços de mercado atuais para o Grande Porto (valores indicativos)</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🌱</div>
+            <h3>Manutenção de Jardins</h3>
+            <p>Cortes regulares de relva, limpeza de canteiros e cuidados gerais.</p>
+            <div class="price-tag">A partir de 50€/mês<span>Jardim pequeno • Plano mensal</span></div>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🌱</div>
-                <h3>Manutenção de Jardins</h3>
-                <p>Cortes regulares de relva, limpeza de canteiros, rega e cuidados gerais para manter o seu jardim sempre impecável.</p>
-                <div class="price-tag">
-                    A partir de 50€/mês
-                    <span>Jardim pequeno • Plano mensal</span>
+        <div class="service-card">
+            <div class="service-icon">🌳</div>
+            <h3>Poda de Árvores e Arbustos</h3>
+            <p>Poda profissional de árvores, sebes e arbustos.</p>
+            <div class="price-tag">A partir de 80€<span>Árvore até 5m</span></div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏡</div>
+            <h3>Criação e Projeto de Jardins</h3>
+            <p>Projetamos e construímos o jardim dos seus sonhos.</p>
+            <div class="price-tag">A partir de 25€/m²<span>Projeto + execução</span></div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">💧</div>
+            <h3>Sistemas de Rega</h3>
+            <p>Instalação e manutenção de sistemas de rega automáticos.</p>
+            <div class="price-tag">A partir de 500€<span>Jardim pequeno</span></div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🧹</div>
+            <h3>Limpeza de Terrenos</h3>
+            <p>Limpeza e recuperação de terrenos com vegetação excessiva.</p>
+            <div class="price-tag">A partir de 0,15€/m²<span>Ou 25€/hora</span></div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🍂</div>
+            <h3>Preparação Sazonal</h3>
+            <p>Serviços de primavera, verão, outono e inverno.</p>
+            <div class="price-tag">A partir de 60€<span>Por visita</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- PLANEADOR / MARCAÇÃO -->
+<section class="section booking-section" id="marcar">
+    <div class="section-title">
+        <h2>Marcar Serviço</h2>
+        <p>Escolha a data e hora pretendida. A marcação fica registada na nossa agenda.</p>
+    </div>
+
+    <div class="booking-container">
+        <!-- Formulário -->
+        <div class="booking-form">
+            <h3>📋 Nova Marcação</h3>
+            <div class="success-msg" id="successMsg">✅ Marcação registada com sucesso! Entraremos em contacto em breve.</div>
+            <div class="error-msg" id="errorMsg"></div>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>Nome completo *</label>
+                    <input type="text" id="nome" required placeholder="O seu nome">
                 </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🌳</div>
-                <h3>Poda de Árvores e Arbustos</h3>
-                <p>Poda profissional de árvores, sebes e arbustos. Segurança e estética garantidas.</p>
-                <div class="price-tag">
-                    A partir de 80€
-                    <span>Árvore até 5m • Por unidade</span>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefone *</label>
+                        <input type="tel" id="telefone" required placeholder="912 345 678">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="email@exemplo.pt">
+                    </div>
                 </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏡</div>
-                <h3>Criação e Projeto de Jardins</h3>
-                <p>Projetamos e construímos o jardim dos seus sonhos, adaptado ao espaço e às suas preferências.</p>
-                <div class="price-tag">
-                    A partir de 25€/m²
-                    <span>Projeto + execução • Sob orçamento</span>
+                <div class="form-group">
+                    <label>Serviço *</label>
+                    <select id="servico" required>
+                        <option value="">Selecione o serviço</option>
+                        <option value="Manutenção de Jardins">Manutenção de Jardins</option>
+                        <option value="Poda de Árvores e Arbustos">Poda de Árvores e Arbustos</option>
+                        <option value="Criação e Projeto de Jardins">Criação e Projeto de Jardins</option>
+                        <option value="Sistemas de Rega">Sistemas de Rega</option>
+                        <option value="Limpeza de Terrenos">Limpeza de Terrenos</option>
+                        <option value="Preparação Sazonal">Preparação Sazonal</option>
+                        <option value="Orçamento / Visita">Orçamento / Visita Técnica</option>
+                    </select>
                 </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💧</div>
-                <h3>Sistemas de Rega</h3>
-                <p>Instalação e manutenção de sistemas de rega automáticos eficientes e económicos.</p>
-                <div class="price-tag">
-                    A partir de 500€
-                    <span>Jardim pequeno • Instalação completa</span>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Data preferida *</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora preferida *</label>
+                        <select id="hora" required>
+                            <option value="">Escolha a hora</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🧹</div>
-                <h3>Limpeza de Terrenos</h3>
-                <p>Limpeza e recuperação de terrenos abandonados ou com vegetação excessiva.</p>
-                <div class="price-tag">
-                    A partir de 0,15€/m²
-                    <span>Ou 25€/hora • Conforme estado</span>
+                <div class="form-group">
+                    <label>Morada / Local do serviço</label>
+                    <input type="text" id="morada" placeholder="Rua, localidade (Grande Porto)">
                 </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🍂</div>
-                <h3>Preparação Sazonal</h3>
-                <p>Serviços específicos de primavera, verão, outono e inverno para manter o jardim saudável todo o ano.</p>
-                <div class="price-tag">
-                    A partir de 60€
-                    <span>Por visita • Inclui adubação e limpeza</span>
+                <div class="form-group">
+                    <label>Observações</label>
+                    <textarea id="observacoes" placeholder="Detalhes adicionais, área do jardim, etc."></textarea>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tabela de Preços Detalhada -->
-    <section class="section pricing" id="precos">
-        <div class="section-title">
-            <h2>Tabela de Preços 2026</h2>
-            <p>Valores de referência para o Grande Porto e Norte de Portugal (com IVA incluído)</p>
+                <button type="submit" class="btn-submit">Confirmar Marcação</button>
+            </form>
         </div>
 
-        <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>Serviço</th>
-                    <th>Detalhe</th>
-                    <th>Preço Indicativo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Manutenção Mensal</strong></td>
-                    <td>Jardim pequeno (&lt; 50 m²) – 1 visita/mês</td>
-                    <td class="price-value">50€ – 100€/mês</td>
-                </tr>
-                <tr>
-                    <td><strong>Manutenção Mensal</strong></td>
-                    <td>Jardim médio (50–150 m²)</td>
-                    <td class="price-value">100€ – 200€/mês</td>
-                </tr>
-                <tr>
-                    <td><strong>Manutenção Mensal</strong></td>
-                    <td>Jardim grande (150–500 m²)</td>
-                    <td class="price-value">200€ – 450€/mês</td>
-                </tr>
-                <tr>
-                    <td><strong>Corte de Relva</strong></td>
-                    <td>Jardim pequeno (&lt; 50 m²) – visita pontual</td>
-                    <td class="price-value">30€ – 55€</td>
-                </tr>
-                <tr>
-                    <td><strong>Corte de Relva</strong></td>
-                    <td>Jardim médio (50–150 m²)</td>
-                    <td class="price-value">50€ – 110€</td>
-                </tr>
-                <tr>
-                    <td><strong>Poda de Árvore</strong></td>
-                    <td>Até 5 metros de altura</td>
-                    <td class="price-value">80€ – 160€ / árvore</td>
-                </tr>
-                <tr>
-                    <td><strong>Poda de Árvore</strong></td>
-                    <td>5 a 10 metros (com equipamento)</td>
-                    <td class="price-value">150€ – 350€ / árvore</td>
-                </tr>
-                <tr>
-                    <td><strong>Poda de Sebes</strong></td>
-                    <td>Por hora de trabalho</td>
-                    <td class="price-value">25€ – 40€/hora</td>
-                </tr>
-                <tr>
-                    <td><strong>Limpeza de Terreno</strong></td>
-                    <td>Vegetação densa / mato</td>
-                    <td class="price-value">0,12€ – 0,20€ / m²</td>
-                </tr>
-                <tr>
-                    <td><strong>Sistema de Rega</strong></td>
-                    <td>Jardim pequeno (até 50 m²)</td>
-                    <td class="price-value">500€ – 1.100€</td>
-                </tr>
-                <tr>
-                    <td><strong>Sistema de Rega</strong></td>
-                    <td>Jardim médio (50–200 m²)</td>
-                    <td class="price-value">1.200€ – 2.800€</td>
-                </tr>
-                <tr>
-                    <td><strong>Mão de Obra</strong></td>
-                    <td>Jardineiro (hora)</td>
-                    <td class="price-value">15€ – 25€/hora</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p class="note">
-            <strong>Nota:</strong> Os valores apresentados são indicativos e baseados em preços de mercado atuais no Grande Porto (2026). 
-            O preço final depende da dimensão, complexidade, acesso e estado do espaço. 
-            Oferecemos <strong>orçamento gratuito e sem compromisso</strong> após visita ao local.
-        </p>
-    </section>
-
-    <!-- Sobre -->
-    <section class="about" id="sobre">
-        <div class="about-container">
-            <div class="about-text">
-                <h2>Quem Somos</h2>
-                <p>Somos uma empresa de jardinagem sediada no Grande Porto, com anos de experiência no cuidado de espaços verdes residenciais e comerciais.</p>
-                <p>Trabalhamos com profissionalismo, pontualidade e respeito pelo ambiente. Utilizamos técnicas modernas e produtos amigos da natureza sempre que possível.</p>
-                <p>A nossa área de atuação cobre todo o Grande Porto: Porto, Vila Nova de Gaia, Matosinhos, Maia, Gondomar, Valongo e arredores.</p>
-            </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jardineiro a trabalhar">
+        <!-- Agenda -->
+        <div class="agenda-box">
+            <h3>📅 Agenda de Marcações</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:1rem;">
+                Marcações registadas neste dispositivo. (Para uso real em vários dispositivos recomenda-se ligação a Google Calendar ou base de dados)
+            </p>
+            <div class="agenda-list" id="agendaList">
+                <div class="empty-agenda">Ainda não existem marcações.</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Porquê nós -->
-    <section class="section why-us" id="porque">
-        <div class="section-title">
-            <h2>Porquê escolher-nos?</h2>
-            <p>Mais do que um serviço, oferecemos confiança e resultados visíveis.</p>
-        </div>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">✅</div>
-                <h4>Profissionais Experientes</h4>
-                <p>Equipa qualificada e com experiência comprovada no setor.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📍</div>
-                <h4>Cobertura Grande Porto</h4>
-                <p>Atuamos em todo o Grande Porto com rapidez e disponibilidade.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">💰</div>
-                <h4>Orçamentos Transparentes</h4>
-                <p>Preços claros, sem surpresas. Orçamento gratuito e sem compromisso.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🌿</div>
-                <h4>Respeito pelo Ambiente</h4>
-                <p>Práticas sustentáveis e produtos ecológicos sempre que possível.</p>
-            </div>
-        </div>
-    </section>
+<!-- PREÇOS -->
+<section class="section pricing" id="precos">
+    <div class="section-title">
+        <h2>Tabela de Preços 2026</h2>
+        <p>Valores de referência para o Grande Porto (com IVA incluído)</p>
+    </div>
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Serviço</th>
+                <th>Detalhe</th>
+                <th>Preço Indicativo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim pequeno (&lt; 50 m²)</td><td class="price-value">50€ – 100€/mês</td></tr>
+            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim médio (50–150 m²)</td><td class="price-value">100€ – 200€/mês</td></tr>
+            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim grande (150–500 m²)</td><td class="price-value">200€ – 450€/mês</td></tr>
+            <tr><td><strong>Corte de Relva</strong></td><td>Visita pontual</td><td class="price-value">30€ – 110€</td></tr>
+            <tr><td><strong>Poda de Árvore</strong></td><td>Até 5 metros</td><td class="price-value">80€ – 160€</td></tr>
+            <tr><td><strong>Poda de Árvore</strong></td><td>5 a 10 metros</td><td class="price-value">150€ – 350€</td></tr>
+            <tr><td><strong>Sistema de Rega</strong></td><td>Jardim pequeno</td><td class="price-value">500€ – 1.100€</td></tr>
+            <tr><td><strong>Limpeza de Terreno</strong></td><td>Por m²</td><td class="price-value">0,12€ – 0,20€/m²</td></tr>
+        </tbody>
+    </table>
+    <p class="note"><strong>Nota:</strong> Valores indicativos. Orçamento gratuito após visita.</p>
+</section>
 
-    <!-- Contacto / CTA -->
-    <section class="cta" id="contacto">
-        <h2>Pronto para transformar o seu jardim?</h2>
-        <p>Peça já o seu orçamento gratuito. Respondemos com rapidez!</p>
-        <a href="tel:+351912345678" class="btn-primary" style="background:#95d5b2; color:#1b4332;">📞 912 345 678</a>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                📧 info@verdeporto.pt
-            </div>
-            <div class="contact-item">
-                📍 Grande Porto
-            </div>
-            <div class="contact-item">
-                🕐 Seg - Sáb: 8h - 19h
-            </div>
-        </div>
-    </section>
+<!-- CTA -->
+<section class="cta" id="contacto">
+    <h2>Precisa de ajuda rápida?</h2>
+    <p>Ligue ou envie mensagem. Respondemos com rapidez!</p>
+    <a href="tel:+351912345678" class="btn-primary" style="background:#95d5b2; color:#1b4332;">📞 912 345 678</a>
+    <div class="contact-info">
+        <div>📧 info@verdeporto.pt</div>
+        <div>📍 Grande Porto</div>
+        <div>🕐 Seg - Sáb: 8h - 19h</div>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>VerdePorto</h4>
-                <p>Serviços profissionais de jardinagem no Grande Porto. Cuidamos dos seus espaços verdes com paixão e qualidade.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Serviços</h4>
-                <a href="#servicos">Manutenção de Jardins</a>
-                <a href="#servicos">Poda de Árvores</a>
-                <a href="#servicos">Projetos de Jardins</a>
-                <a href="#servicos">Sistemas de Rega</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <p>📞 912 345 678</p>
-                <p>📧 info@verdeporto.pt</p>
-                <p>📍 Grande Porto, Portugal</p>
-            </div>
-            <div class="footer-col">
-                <h4>Horário</h4>
-                <p>Segunda a Sexta: 8h - 19h</p>
-                <p>Sábado: 8h - 13h</p>
-                <p>Domingo: Encerrado</p>
-            </div>
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>VerdePorto</h4>
+            <p>Serviços profissionais de jardinagem no Grande Porto.</p>
         </div>
-        <div class="footer-bottom">
-            © 2026 VerdePorto - Serviços de Jardinagem. Todos os direitos reservados.
+        <div class="footer-col">
+            <h4>Contacto</h4>
+            <p>📞 912 345 678</p>
+            <p>📧 info@verdeporto.pt</p>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>Horário</h4>
+            <p>Seg - Sex: 8h - 19h</p>
+            <p>Sábado: 8h - 13h</p>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 VerdePorto - Todos os direitos reservados.</div>
+</footer>
 
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+<script>
+    // Definir data mínima = hoje
+    const hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('data').setAttribute('min', hoje);
+
+    // Carregar agenda ao iniciar
+    let marcacoes = JSON.parse(localStorage.getItem('verdeporto_agenda')) || [];
+
+    function renderAgenda() {
+        const lista = document.getElementById('agendaList');
+        if (marcacoes.length === 0) {
+            lista.innerHTML = '<div class="empty-agenda">Ainda não existem marcações.</div>';
+            return;
+        }
+
+        // Ordenar por data + hora
+        marcacoes.sort((a, b) => {
+            const da = a.data + a.hora;
+            const db = b.data + b.hora;
+            return da.localeCompare(db);
         });
-    </script>
+
+        lista.innerHTML = marcacoes.map((m, index) => `
+            <div class="agenda-item">
+                <div class="info">
+                    <strong>${m.servico}</strong>
+                    <span>📅 ${formatDate(m.data)} às ${m.hora}</span><br>
+                    <span>👤 ${m.nome} | 📞 ${m.telefone}</span>
+                    ${m.morada ? `<br><span>📍 ${m.morada}</span>` : ''}
+                </div>
+                <button class="btn-delete" onclick="apagarMarcacao(${index})">Apagar</button>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(dateStr) {
+        const [y, m, d] = dateStr.split('-');
+        return `${d}/${m}/${y}`;
+    }
+
+    function apagarMarcacao(index) {
+        if (confirm('Tem a certeza que deseja apagar esta marcação?')) {
+            marcacoes.splice(index, 1);
+            localStorage.setItem('verdeporto_agenda', JSON.stringify(marcacoes));
+            renderAgenda();
+        }
+    }
+
+    // Submeter formulário
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const servico = document.getElementById('servico').value;
+        const data = document.getElementById('data').value;
+        const hora = document.getElementById('hora').value;
+        const morada = document.getElementById('morada').value.trim();
+        const observacoes = document.getElementById('observacoes').value.trim();
+
+        // Validação básica de data
+        if (data < hoje) {
+            showError('Não é possível marcar para datas passadas.');
+            return;
+        }
+
+        // Verificar se já existe marcação no mesmo dia/hora (simples)
+        const conflito = marcacoes.some(m => m.data === data && m.hora === hora);
+        if (conflito) {
+            showError('Já existe uma marcação neste horário. Escolha outra hora.');
+            return;
+        }
+
+        const novaMarcacao = {
+            id: Date.now(),
+            nome, telefone, email, servico, data, hora, morada, observacoes,
+            criadoEm: new Date().toISOString()
+        };
+
+        marcacoes.push(novaMarcacao);
+        localStorage.setItem('verdeporto_agenda', JSON.stringify(marcacoes));
+
+        // Limpar formulário
+        this.reset();
+        document.getElementById('data').setAttribute('min', hoje);
+
+        // Mostrar sucesso
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('errorMsg').style.display = 'none';
+        setTimeout(() => {
+            document.getElementById('successMsg').style.display = 'none';
+        }, 5000);
+
+        renderAgenda();
+
+        // Scroll para a agenda
+        document.querySelector('.agenda-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    function showError(msg) {
+        const el = document.getElementById('errorMsg');
+        el.textContent = msg;
+        el.style.display = 'block';
+        document.getElementById('successMsg').style.display = 'none';
+    }
+
+    // Inicializar
+    renderAgenda();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
 </body>
 </html>
