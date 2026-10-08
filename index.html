@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços de Jardinagem | Grande Porto | VerdePorto</title>
-    <meta name="description" content="Serviços profissionais de jardinagem no Grande Porto. Marque online o seu serviço.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #1a1a1a; background: #f8faf8; }
@@ -15,85 +15,97 @@
         .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .logo span { color: #95d5b2; }
-        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul { display: flex; list-style: none; gap: 1.8rem; align-items: center; }
         nav a { color: white; text-decoration: none; font-weight: 500; transition: color 0.3s; }
         nav a:hover { color: #95d5b2; }
-        .btn-header { background: #2d6a4f; color: white; padding: 0.6rem 1.4rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
+        .btn-header { background: #2d6a4f; color: white; padding: 0.55rem 1.3rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
         .btn-header:hover { background: #40916c; }
+        .btn-logout { background: #dc3545; border: none; color: white; padding: 0.45rem 1rem; border-radius: 50px; cursor: pointer; font-size: 0.9rem; }
 
         .hero {
-            background: linear-gradient(rgba(27, 67, 50, 0.75), rgba(27, 67, 50, 0.85)),
-                        url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            color: white; min-height: 85vh; display: flex; align-items: center; padding: 0 5%;
+            background: linear-gradient(rgba(27, 67, 50, 0.78), rgba(27, 67, 50, 0.88)),
+                        url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            color: white; min-height: 78vh; display: flex; align-items: center; padding: 0 5%;
         }
         .hero-content { max-width: 700px; }
-        .hero h1 { font-size: 3.1rem; line-height: 1.2; margin-bottom: 1.2rem; }
-        .hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
-        .btn-primary { display: inline-block; background: #95d5b2; color: #1b4332; padding: 1rem 2.2rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s; border: none; cursor: pointer; }
+        .hero h1 { font-size: 2.9rem; line-height: 1.2; margin-bottom: 1.1rem; }
+        .hero p { font-size: 1.2rem; margin-bottom: 1.8rem; opacity: 0.95; }
+        .btn-primary { display: inline-block; background: #95d5b2; color: #1b4332; padding: 0.95rem 2.1rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.05rem; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-primary:hover { background: #b7e4c7; transform: translateY(-3px); }
 
-        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2.3rem; color: #1b4332; margin-bottom: 0.8rem; }
+        .section { padding: 4.2rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 2.6rem; }
+        .section-title h2 { font-size: 2.15rem; color: #1b4332; margin-bottom: 0.55rem; }
         .section-title p { color: #555; max-width: 600px; margin: 0 auto; }
 
-        /* Booking Section */
+        /* Booking */
         .booking-section { background: #e8f5e9; }
-        .booking-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; }
-        .booking-form, .agenda-box { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-        .booking-form h3, .agenda-box h3 { color: #1b4332; margin-bottom: 1.5rem; font-size: 1.4rem; }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 500; color: #333; font-size: 0.95rem; }
+        .booking-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2.3rem; max-width: 1100px; margin: 0 auto; }
+        .booking-form, .agenda-box { background: white; border-radius: 16px; padding: 1.9rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .booking-form h3, .agenda-box h3 { color: #1b4332; margin-bottom: 1.3rem; font-size: 1.3rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 500; color: #333; font-size: 0.93rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem;
+            width: 100%; padding: 0.68rem 0.95rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 0.98rem;
         }
-        .form-group textarea { resize: vertical; min-height: 90px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .btn-submit { width: 100%; background: #1b4332; color: white; padding: 1rem; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+        .btn-submit { width: 100%; background: #1b4332; color: white; padding: 0.9rem; border: none; border-radius: 50px; font-size: 1.05rem; font-weight: 600; cursor: pointer; margin-top: 0.3rem; }
         .btn-submit:hover { background: #2d6a4f; }
+        .btn-submit:disabled { background: #999; cursor: not-allowed; }
 
-        .agenda-list { max-height: 420px; overflow-y: auto; }
+        .agenda-list { max-height: 500px; overflow-y: auto; }
         .agenda-item {
-            background: #f8faf8; border-left: 4px solid #2d6a4f; padding: 1rem; margin-bottom: 0.8rem; border-radius: 0 8px 8px 0;
-            display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+            background: #f8faf8; border-left: 4px solid #2d6a4f; padding: 0.95rem; margin-bottom: 0.7rem;
+            border-radius: 0 8px 8px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 0.9rem;
         }
-        .agenda-item .info strong { color: #1b4332; display: block; }
-        .agenda-item .info span { font-size: 0.9rem; color: #555; }
-        .btn-delete { background: #dc3545; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-        .btn-delete:hover { background: #c82333; }
-        .empty-agenda { text-align: center; color: #888; padding: 2rem 0; }
-        .success-msg { background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
-        .error-msg { background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
+        .agenda-item.confirmada { border-left-color: #198754; }
+        .agenda-item.cancelada { border-left-color: #dc3545; opacity: 0.75; }
+        .agenda-item .info strong { color: #1b4332; display: block; margin-bottom: 0.15rem; }
+        .agenda-item .info span { font-size: 0.86rem; color: #555; }
+        .status-badge { display: inline-block; font-size: 0.73rem; padding: 0.12rem 0.48rem; border-radius: 20px; margin-top: 0.25rem; font-weight: 500; }
+        .status-pendente { background: #fff3cd; color: #856404; }
+        .status-confirmada { background: #d1e7dd; color: #0f5132; }
+        .status-cancelada { background: #f8d7da; color: #842029; }
+        .btn-actions { display: flex; flex-direction: column; gap: 0.35rem; }
+        .btn-sm { border: none; padding: 0.32rem 0.65rem; border-radius: 6px; cursor: pointer; font-size: 0.78rem; color: white; }
+        .btn-confirm { background: #198754; }
+        .btn-cancel { background: #dc3545; }
+        .btn-delete { background: #6c757d; }
+        .empty-agenda { text-align: center; color: #888; padding: 2.2rem 0; }
+        .success-msg { background: #d4edda; color: #155724; padding: 0.9rem; border-radius: 8px; margin-bottom: 0.9rem; display: none; }
+        .error-msg { background: #f8d7da; color: #721c24; padding: 0.9rem; border-radius: 8px; margin-bottom: 0.9rem; display: none; }
+        .loading { text-align: center; color: #666; padding: 1.4rem; }
+
+        /* Login Admin */
+        .login-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; padding: 1.3rem; margin-bottom: 1.2rem; }
+        .login-box h4 { margin-bottom: 0.8rem; color: #856404; }
+        .login-box input { margin-bottom: 0.6rem; }
+        .btn-login { background: #1b4332; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; }
+        .admin-only { display: none; }
+        .admin-only.visible { display: block; }
 
         /* Services */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .service-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border-top: 4px solid #2d6a4f; display: flex; flex-direction: column; }
-        .service-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .service-card h3 { color: #1b4332; margin-bottom: 0.8rem; font-size: 1.3rem; }
-        .service-card p { color: #555; font-size: 0.95rem; flex-grow: 1; }
-        .price-tag { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; font-weight: 600; color: #1b4332; font-size: 1.15rem; }
-        .price-tag span { font-size: 0.85rem; font-weight: 400; color: #666; display: block; margin-top: 0.3rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.7rem; }
+        .service-card { background: white; border-radius: 16px; padding: 1.7rem; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border-top: 4px solid #2d6a4f; }
+        .service-icon { font-size: 2.2rem; margin-bottom: 0.7rem; }
+        .service-card h3 { color: #1b4332; margin-bottom: 0.55rem; font-size: 1.2rem; }
+        .service-card p { color: #555; font-size: 0.92rem; }
+        .price-tag { margin-top: 0.9rem; padding-top: 0.85rem; border-top: 1px solid #e0e0e0; font-weight: 600; color: #1b4332; font-size: 1.08rem; }
+        .price-tag span { font-size: 0.8rem; font-weight: 400; color: #666; display: block; margin-top: 0.2rem; }
 
-        /* Pricing Table */
-        .pricing { background: white; }
-        .pricing-table { width: 100%; border-collapse: collapse; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-        .pricing-table th { background: #1b4332; color: white; padding: 1.2rem; text-align: left; }
-        .pricing-table td { padding: 1.1rem 1.2rem; border-bottom: 1px solid #eee; }
-        .pricing-table tr:nth-child(even) { background: #f9fdf9; }
-        .price-value { font-weight: 600; color: #1b4332; }
-        .note { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #666; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .cta { background: linear-gradient(135deg, #1b4332, #2d6a4f); color: white; text-align: center; padding: 4.2rem 5%; }
+        .cta h2 { font-size: 2.1rem; margin-bottom: 0.9rem; }
+        .contact-info { display: flex; justify-content: center; gap: 2.3rem; flex-wrap: wrap; margin-top: 1.6rem; }
 
-        .cta { background: linear-gradient(135deg, #1b4332, #2d6a4f); color: white; text-align: center; padding: 5rem 5%; }
-        .cta h2 { font-size: 2.3rem; margin-bottom: 1rem; }
-        .contact-info { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+        footer { background: #0d2818; color: #ccc; padding: 2.6rem 5% 1.3rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.8rem; margin-bottom: 1.6rem; }
+        .footer-col h4 { color: white; margin-bottom: 0.9rem; }
+        .footer-col p, .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 0.35rem; font-size: 0.92rem; }
+        .footer-bottom { text-align: center; padding-top: 1.2rem; border-top: 1px solid #1b4332; font-size: 0.86rem; color: #888; }
 
-        footer { background: #0d2818; color: #ccc; padding: 3rem 5% 1.5rem; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 2rem; }
-        .footer-col h4 { color: white; margin-bottom: 1.2rem; }
-        .footer-col p, .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 0.5rem; font-size: 0.95rem; }
-        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid #1b4332; font-size: 0.9rem; color: #888; }
-
-        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.75rem; cursor: pointer; }
+        .hora-ocupada { color: #aaa; }
 
         @media (max-width: 900px) {
             .booking-container { grid-template-columns: 1fr; }
@@ -103,8 +115,8 @@
             .menu-toggle { display: block; }
             nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #1b4332; padding: 1rem; }
             nav.active { display: block; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            .hero h1 { font-size: 2.2rem; }
+            nav ul { flex-direction: column; gap: 0.9rem; }
+            .hero h1 { font-size: 2rem; }
             .btn-header { display: none; }
         }
     </style>
@@ -118,9 +130,11 @@
         <nav>
             <ul>
                 <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#precos">Preços</a></li>
                 <li><a href="#marcar">Marcar Serviço</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li id="navAdmin" style="display:none;">
+                    <button class="btn-logout" onclick="logout()">Sair Admin</button>
+                </li>
             </ul>
         </nav>
         <a href="#marcar" class="btn-header">Marcar Agora</a>
@@ -139,14 +153,14 @@
 <section class="section" id="servicos">
     <div class="section-title">
         <h2>Os Nossos Serviços</h2>
-        <p>Preços de mercado atuais para o Grande Porto (valores indicativos)</p>
+        <p>Preços de mercado atuais para o Grande Porto</p>
     </div>
     <div class="services-grid">
         <div class="service-card">
             <div class="service-icon">🌱</div>
             <h3>Manutenção de Jardins</h3>
             <p>Cortes regulares de relva, limpeza de canteiros e cuidados gerais.</p>
-            <div class="price-tag">A partir de 50€/mês<span>Jardim pequeno • Plano mensal</span></div>
+            <div class="price-tag">A partir de 50€/mês<span>Jardim pequeno</span></div>
         </div>
         <div class="service-card">
             <div class="service-icon">🌳</div>
@@ -181,18 +195,18 @@
     </div>
 </section>
 
-<!-- PLANEADOR / MARCAÇÃO -->
+<!-- MARCAR SERVIÇO + AGENDA -->
 <section class="section booking-section" id="marcar">
     <div class="section-title">
         <h2>Marcar Serviço</h2>
-        <p>Escolha a data e hora pretendida. A marcação fica registada na nossa agenda.</p>
+        <p>Escolha a data e hora. Horários ocupados ficam bloqueados automaticamente.</p>
     </div>
 
     <div class="booking-container">
-        <!-- Formulário -->
+        <!-- Formulário Público -->
         <div class="booking-form">
             <h3>📋 Nova Marcação</h3>
-            <div class="success-msg" id="successMsg">✅ Marcação registada com sucesso! Entraremos em contacto em breve.</div>
+            <div class="success-msg" id="successMsg">✅ Marcação registada com sucesso! Receberá confirmação em breve.</div>
             <div class="error-msg" id="errorMsg"></div>
 
             <form id="bookingForm">
@@ -220,7 +234,7 @@
                         <option value="Sistemas de Rega">Sistemas de Rega</option>
                         <option value="Limpeza de Terrenos">Limpeza de Terrenos</option>
                         <option value="Preparação Sazonal">Preparação Sazonal</option>
-                        <option value="Orçamento / Visita">Orçamento / Visita Técnica</option>
+                        <option value="Orçamento / Visita Técnica">Orçamento / Visita Técnica</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -231,17 +245,7 @@
                     <div class="form-group">
                         <label>Hora preferida *</label>
                         <select id="hora" required>
-                            <option value="">Escolha a hora</option>
-                            <option value="08:00">08:00</option>
-                            <option value="09:00">09:00</option>
-                            <option value="10:00">10:00</option>
-                            <option value="11:00">11:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="15:00">15:00</option>
-                            <option value="16:00">16:00</option>
-                            <option value="17:00">17:00</option>
-                            <option value="18:00">18:00</option>
+                            <option value="">Escolha primeiro a data</option>
                         </select>
                     </div>
                 </div>
@@ -253,49 +257,37 @@
                     <label>Observações</label>
                     <textarea id="observacoes" placeholder="Detalhes adicionais, área do jardim, etc."></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Confirmar Marcação</button>
+                <button type="submit" class="btn-submit" id="btnSubmit">Confirmar Marcação</button>
             </form>
         </div>
 
-        <!-- Agenda -->
+        <!-- Agenda (só visível para admin) -->
         <div class="agenda-box">
             <h3>📅 Agenda de Marcações</h3>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:1rem;">
-                Marcações registadas neste dispositivo. (Para uso real em vários dispositivos recomenda-se ligação a Google Calendar ou base de dados)
-            </p>
-            <div class="agenda-list" id="agendaList">
-                <div class="empty-agenda">Ainda não existem marcações.</div>
+
+            <!-- Login Admin -->
+            <div id="loginBox" class="login-box">
+                <h4>🔐 Área de Administração</h4>
+                <input type="email" id="adminEmail" placeholder="Email do administrador">
+                <input type="password" id="adminPassword" placeholder="Password">
+                <button class="btn-login" onclick="loginAdmin()">Entrar</button>
+                <p id="loginError" style="color:#dc3545; font-size:0.85rem; margin-top:0.5rem; display:none;"></p>
+            </div>
+
+            <div id="agendaContent" class="admin-only">
+                <p style="font-size:0.86rem; color:#666; margin-bottom:0.9rem;">
+                    Atualizada em tempo real. Pode confirmar, cancelar ou apagar marcações.
+                </p>
+                <div class="agenda-list" id="agendaList">
+                    <div class="loading">A carregar agenda...</div>
+                </div>
+            </div>
+
+            <div id="notLogged" style="text-align:center; color:#888; padding:1.5rem 0;">
+                Faça login como administrador para ver e gerir as marcações.
             </div>
         </div>
     </div>
-</section>
-
-<!-- PREÇOS -->
-<section class="section pricing" id="precos">
-    <div class="section-title">
-        <h2>Tabela de Preços 2026</h2>
-        <p>Valores de referência para o Grande Porto (com IVA incluído)</p>
-    </div>
-    <table class="pricing-table">
-        <thead>
-            <tr>
-                <th>Serviço</th>
-                <th>Detalhe</th>
-                <th>Preço Indicativo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim pequeno (&lt; 50 m²)</td><td class="price-value">50€ – 100€/mês</td></tr>
-            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim médio (50–150 m²)</td><td class="price-value">100€ – 200€/mês</td></tr>
-            <tr><td><strong>Manutenção Mensal</strong></td><td>Jardim grande (150–500 m²)</td><td class="price-value">200€ – 450€/mês</td></tr>
-            <tr><td><strong>Corte de Relva</strong></td><td>Visita pontual</td><td class="price-value">30€ – 110€</td></tr>
-            <tr><td><strong>Poda de Árvore</strong></td><td>Até 5 metros</td><td class="price-value">80€ – 160€</td></tr>
-            <tr><td><strong>Poda de Árvore</strong></td><td>5 a 10 metros</td><td class="price-value">150€ – 350€</td></tr>
-            <tr><td><strong>Sistema de Rega</strong></td><td>Jardim pequeno</td><td class="price-value">500€ – 1.100€</td></tr>
-            <tr><td><strong>Limpeza de Terreno</strong></td><td>Por m²</td><td class="price-value">0,12€ – 0,20€/m²</td></tr>
-        </tbody>
-    </table>
-    <p class="note"><strong>Nota:</strong> Valores indicativos. Orçamento gratuito após visita.</p>
 </section>
 
 <!-- CTA -->
@@ -331,36 +323,163 @@
 </footer>
 
 <script>
-    // Definir data mínima = hoje
+    // ====================== CONFIGURAÇÃO ======================
+    const SUPABASE_URL = 'COLE_AQUI_O_PROJECT_URL';
+    const SUPABASE_ANON_KEY = 'COLE_AQUI_A_ANON_KEY';
+
+    // EmailJS (para receber e-mail automático)
+    const EMAILJS_PUBLIC_KEY = 'COLE_AQUI_PUBLIC_KEY';
+    const EMAILJS_SERVICE_ID = 'COLE_AQUI_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'COLE_AQUI_TEMPLATE_ID';
+    // ==========================================================
+
+    const { createClient } = supabase;
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Inicializar EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
     const hoje = new Date().toISOString().split('T')[0];
     document.getElementById('data').setAttribute('min', hoje);
 
-    // Carregar agenda ao iniciar
-    let marcacoes = JSON.parse(localStorage.getItem('verdeporto_agenda')) || [];
+    const todasHoras = ['08:00','09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
 
-    function renderAgenda() {
+    // ========== BLOQUEAR HORÁRIOS OCUPADOS ==========
+    document.getElementById('data').addEventListener('change', async function() {
+        const data = this.value;
+        const selectHora = document.getElementById('hora');
+        selectHora.innerHTML = '<option value="">A carregar horários...</option>';
+
+        if (!data) {
+            selectHora.innerHTML = '<option value="">Escolha primeiro a data</option>';
+            return;
+        }
+
+        // Buscar marcações existentes nesse dia (só precisamos das horas)
+        // Como a leitura pública está bloqueada, usamos uma abordagem diferente:
+        // Criamos uma função RPC ou simplesmente tentamos inserir e tratamos conflito.
+        // Para simplificar e manter segurança, vamos buscar via uma view pública ou
+        // aceitar que o conflito é verificado no servidor.
+
+        // Solução prática: criar uma view pública só com data+hora
+        // Por agora usamos uma query que funciona se tiveres a policy correta.
+        // Alternativa mais segura: criar uma função.
+
+        try {
+            const { data: ocupados, error } = await _supabase
+                .rpc('horarios_ocupados', { data_consulta: data });
+
+            // Se a RPC não existir, tentamos outra forma
+            let horasOcupadas = [];
+            if (!error && ocupados) {
+                horasOcupadas = ocupados.map(h => h.hora.substring(0,5));
+            }
+
+            selectHora.innerHTML = '<option value="">Escolha a hora</option>';
+            todasHoras.forEach(h => {
+                const option = document.createElement('option');
+                option.value = h;
+                if (horasOcupadas.includes(h)) {
+                    option.textContent = h + ' (ocupado)';
+                    option.disabled = true;
+                    option.className = 'hora-ocupada';
+                } else {
+                    option.textContent = h;
+                }
+                selectHora.appendChild(option);
+            });
+        } catch (e) {
+            // Fallback: mostra todas as horas
+            selectHora.innerHTML = '<option value="">Escolha a hora</option>';
+            todasHoras.forEach(h => {
+                const option = document.createElement('option');
+                option.value = h;
+                option.textContent = h;
+                selectHora.appendChild(option);
+            });
+        }
+    });
+
+    // ========== LOGIN ADMIN ==========
+    async function loginAdmin() {
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value;
+
+        const { data, error } = await _supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) {
+            document.getElementById('loginError').textContent = 'Email ou password incorretos.';
+            document.getElementById('loginError').style.display = 'block';
+            return;
+        }
+
+        document.getElementById('loginError').style.display = 'none';
+        mostrarAreaAdmin(true);
+        carregarAgenda();
+    }
+
+    async function logout() {
+        await _supabase.auth.signOut();
+        mostrarAreaAdmin(false);
+    }
+
+    function mostrarAreaAdmin(logado) {
+        document.getElementById('loginBox').style.display = logado ? 'none' : 'block';
+        document.getElementById('agendaContent').classList.toggle('visible', logado);
+        document.getElementById('notLogged').style.display = logado ? 'none' : 'block';
+        document.getElementById('navAdmin').style.display = logado ? 'block' : 'none';
+    }
+
+    // Verificar se já está logado
+    _supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+            mostrarAreaAdmin(true);
+            carregarAgenda();
+        }
+    });
+
+    // ========== CARREGAR AGENDA (só admin) ==========
+    async function carregarAgenda() {
         const lista = document.getElementById('agendaList');
-        if (marcacoes.length === 0) {
+        lista.innerHTML = '<div class="loading">A carregar agenda...</div>';
+
+        const { data, error } = await _supabase
+            .from('marcacoes')
+            .select('*')
+            .order('data', { ascending: true })
+            .order('hora', { ascending: true });
+
+        if (error) {
+            lista.innerHTML = '<div class="empty-agenda">Erro ao carregar. Faça login novamente.</div>';
+            return;
+        }
+
+        if (!data || data.length === 0) {
             lista.innerHTML = '<div class="empty-agenda">Ainda não existem marcações.</div>';
             return;
         }
 
-        // Ordenar por data + hora
-        marcacoes.sort((a, b) => {
-            const da = a.data + a.hora;
-            const db = b.data + b.hora;
-            return da.localeCompare(db);
-        });
-
-        lista.innerHTML = marcacoes.map((m, index) => `
-            <div class="agenda-item">
+        lista.innerHTML = data.map(m => `
+            <div class="agenda-item ${m.status}">
                 <div class="info">
                     <strong>${m.servico}</strong>
-                    <span>📅 ${formatDate(m.data)} às ${m.hora}</span><br>
+                    <span>📅 ${formatDate(m.data)} às ${m.hora.substring(0,5)}</span><br>
                     <span>👤 ${m.nome} | 📞 ${m.telefone}</span>
+                    ${m.email ? `<br><span>📧 ${m.email}</span>` : ''}
                     ${m.morada ? `<br><span>📍 ${m.morada}</span>` : ''}
+                    ${m.observacoes ? `<br><span>💬 ${m.observacoes}</span>` : ''}
+                    <br><span class="status-badge status-${m.status}">${m.status}</span>
                 </div>
-                <button class="btn-delete" onclick="apagarMarcacao(${index})">Apagar</button>
+                <div class="btn-actions">
+                    ${m.status === 'pendente' ? `
+                        <button class="btn-sm btn-confirm" onclick="atualizarStatus('${m.id}', 'confirmada')">Confirmar</button>
+                        <button class="btn-sm btn-cancel" onclick="atualizarStatus('${m.id}', 'cancelada')">Cancelar</button>
+                    ` : ''}
+                    <button class="btn-sm btn-delete" onclick="apagarMarcacao('${m.id}')">Apagar</button>
+                </div>
             </div>
         `).join('');
     }
@@ -370,64 +489,87 @@
         return `${d}/${m}/${y}`;
     }
 
-    function apagarMarcacao(index) {
-        if (confirm('Tem a certeza que deseja apagar esta marcação?')) {
-            marcacoes.splice(index, 1);
-            localStorage.setItem('verdeporto_agenda', JSON.stringify(marcacoes));
-            renderAgenda();
-        }
+    async function atualizarStatus(id, novoStatus) {
+        const { error } = await _supabase.from('marcacoes').update({ status: novoStatus }).eq('id', id);
+        if (error) alert('Erro: ' + error.message);
+        else carregarAgenda();
     }
 
-    // Submeter formulário
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    async function apagarMarcacao(id) {
+        if (!confirm('Apagar esta marcação?')) return;
+        const { error } = await _supabase.from('marcacoes').delete().eq('id', id);
+        if (error) alert('Erro: ' + error.message);
+        else carregarAgenda();
+    }
+
+    // ========== SUBMETER MARCAÇÃO ==========
+    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        const btn = document.getElementById('btnSubmit');
+        btn.disabled = true;
+        btn.textContent = 'A registar...';
 
-        const nome = document.getElementById('nome').value.trim();
-        const telefone = document.getElementById('telefone').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const servico = document.getElementById('servico').value;
-        const data = document.getElementById('data').value;
-        const hora = document.getElementById('hora').value;
-        const morada = document.getElementById('morada').value.trim();
-        const observacoes = document.getElementById('observacoes').value.trim();
-
-        // Validação básica de data
-        if (data < hoje) {
-            showError('Não é possível marcar para datas passadas.');
-            return;
-        }
-
-        // Verificar se já existe marcação no mesmo dia/hora (simples)
-        const conflito = marcacoes.some(m => m.data === data && m.hora === hora);
-        if (conflito) {
-            showError('Já existe uma marcação neste horário. Escolha outra hora.');
-            return;
-        }
-
-        const novaMarcacao = {
-            id: Date.now(),
-            nome, telefone, email, servico, data, hora, morada, observacoes,
-            criadoEm: new Date().toISOString()
+        const marcacao = {
+            nome: document.getElementById('nome').value.trim(),
+            telefone: document.getElementById('telefone').value.trim(),
+            email: document.getElementById('email').value.trim() || null,
+            servico: document.getElementById('servico').value,
+            data: document.getElementById('data').value,
+            hora: document.getElementById('hora').value,
+            morada: document.getElementById('morada').value.trim() || null,
+            observacoes: document.getElementById('observacoes').value.trim() || null
         };
 
-        marcacoes.push(novaMarcacao);
-        localStorage.setItem('verdeporto_agenda', JSON.stringify(marcacoes));
+        if (marcacao.data < hoje) {
+            showError('Não é possível marcar para datas passadas.');
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Marcação';
+            return;
+        }
 
-        // Limpar formulário
+        // Inserir na base de dados
+        const { error } = await _supabase.from('marcacoes').insert([marcacao]);
+
+        if (error) {
+            if (error.code === '23505' || error.message.includes('duplicate')) {
+                showError('Este horário acabou de ser ocupado. Escolha outro.');
+            } else {
+                showError('Erro ao registar: ' + error.message);
+            }
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Marcação';
+            return;
+        }
+
+        // Enviar e-mail automático
+        try {
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                nome: marcacao.nome,
+                telefone: marcacao.telefone,
+                email: marcacao.email || 'Não indicado',
+                servico: marcacao.servico,
+                data: formatDate(marcacao.data),
+                hora: marcacao.hora,
+                morada: marcacao.morada || 'Não indicada',
+                observacoes: marcacao.observacoes || 'Nenhuma'
+            });
+        } catch (emailErr) {
+            console.warn('E-mail não enviado:', emailErr);
+        }
+
+        // Sucesso
         this.reset();
-        document.getElementById('data').setAttribute('min', hoje);
-
-        // Mostrar sucesso
+        document.getElementById('hora').innerHTML = '<option value="">Escolha primeiro a data</option>';
         document.getElementById('successMsg').style.display = 'block';
         document.getElementById('errorMsg').style.display = 'none';
-        setTimeout(() => {
-            document.getElementById('successMsg').style.display = 'none';
-        }, 5000);
+        setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
 
-        renderAgenda();
+        btn.disabled = false;
+        btn.textContent = 'Confirmar Marcação';
 
-        // Scroll para a agenda
-        document.querySelector('.agenda-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Se estiver logado como admin, atualiza a lista
+        const { data: { session } } = await _supabase.auth.getSession();
+        if (session) carregarAgenda();
     });
 
     function showError(msg) {
@@ -437,14 +579,19 @@
         document.getElementById('successMsg').style.display = 'none';
     }
 
-    // Inicializar
-    renderAgenda();
+    // Realtime (só para admin logado)
+    _supabase.channel('marcacoes-changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'marcacoes' }, async () => {
+            const { data: { session } } = await _supabase.auth.getSession();
+            if (session) carregarAgenda();
+        })
+        .subscribe();
 
     // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
         });
     });
 </script>
