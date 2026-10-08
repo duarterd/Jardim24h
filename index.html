@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviços de Jardinagem | Grande Porto</title>
-    <meta name="description" content="Serviços profissionais de jardinagem no Grande Porto. Manutenção de jardins, poda, relva, projetos e muito mais.">
+    <title>Serviços de Jardinagem | Grande Porto | VerdePorto</title>
+    <meta name="description" content="Serviços profissionais de jardinagem no Grande Porto com preços transparentes. Manutenção, poda, rega e mais.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -153,7 +153,7 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -164,6 +164,8 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
             transition: transform 0.3s, box-shadow 0.3s;
             border-top: 4px solid #2d6a4f;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -185,11 +187,80 @@
         .service-card p {
             color: #555;
             font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .price-tag {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            font-weight: 600;
+            color: #1b4332;
+            font-size: 1.15rem;
+        }
+
+        .price-tag span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #666;
+            display: block;
+            margin-top: 0.3rem;
+        }
+
+        /* Pricing Table */
+        .pricing {
+            background: #e8f5e9;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .pricing-table th {
+            background: #1b4332;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pricing-table td {
+            padding: 1.1rem 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: #f9fdf9;
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: #1b4332;
+            white-space: nowrap;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* About */
         .about {
-            background: #e8f5e9;
+            background: white;
         }
 
         .about-container {
@@ -228,7 +299,7 @@
 
         /* Why us */
         .why-us {
-            background: white;
+            background: #f8faf8;
         }
 
         .features {
@@ -374,6 +445,14 @@
             .btn-header {
                 display: none;
             }
+
+            .pricing-table {
+                font-size: 0.9rem;
+            }
+
+            .pricing-table th, .pricing-table td {
+                padding: 0.9rem 0.7rem;
+            }
         }
     </style>
 </head>
@@ -389,8 +468,8 @@
             <nav>
                 <ul>
                     <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#precos">Preços</a></li>
                     <li><a href="#sobre">Sobre Nós</a></li>
-                    <li><a href="#porque">Porquê Nós</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
@@ -402,49 +481,159 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Jardins bonitos e bem cuidados no Grande Porto</h1>
-            <p>Serviços profissionais de jardinagem residencial e comercial. Manutenção, criação de jardins, poda e muito mais.</p>
+            <p>Serviços profissionais de jardinagem residencial e comercial. Preços transparentes e orçamento gratuito.</p>
             <a href="#contacto" class="btn-primary">Peça o seu orçamento gratuito</a>
         </div>
     </section>
 
-    <!-- Serviços -->
+    <!-- Serviços com preços -->
     <section class="section" id="servicos">
         <div class="section-title">
             <h2>Os Nossos Serviços</h2>
-            <p>Cuidamos do seu espaço exterior com profissionalismo e dedicação em toda a área metropolitana do Porto.</p>
+            <p>Preços de mercado atuais para o Grande Porto. Valores indicativos com IVA incluído.</p>
         </div>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon">🌱</div>
                 <h3>Manutenção de Jardins</h3>
                 <p>Cortes regulares de relva, limpeza de canteiros, rega e cuidados gerais para manter o seu jardim sempre impecável.</p>
+                <div class="price-tag">
+                    A partir de 50€/mês
+                    <span>Jardim pequeno • Plano mensal</span>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">🌳</div>
                 <h3>Poda de Árvores e Arbustos</h3>
                 <p>Poda profissional de árvores, sebes e arbustos. Segurança e estética garantidas.</p>
+                <div class="price-tag">
+                    A partir de 80€
+                    <span>Árvore até 5m • Por unidade</span>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">🏡</div>
                 <h3>Criação e Projeto de Jardins</h3>
                 <p>Projetamos e construímos o jardim dos seus sonhos, adaptado ao espaço e às suas preferências.</p>
+                <div class="price-tag">
+                    A partir de 25€/m²
+                    <span>Projeto + execução • Sob orçamento</span>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">💧</div>
                 <h3>Sistemas de Rega</h3>
                 <p>Instalação e manutenção de sistemas de rega automáticos eficientes e económicos.</p>
+                <div class="price-tag">
+                    A partir de 500€
+                    <span>Jardim pequeno • Instalação completa</span>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">🧹</div>
                 <h3>Limpeza de Terrenos</h3>
                 <p>Limpeza e recuperação de terrenos abandonados ou com vegetação excessiva.</p>
+                <div class="price-tag">
+                    A partir de 0,15€/m²
+                    <span>Ou 25€/hora • Conforme estado</span>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">🍂</div>
                 <h3>Preparação Sazonal</h3>
                 <p>Serviços específicos de primavera, verão, outono e inverno para manter o jardim saudável todo o ano.</p>
+                <div class="price-tag">
+                    A partir de 60€
+                    <span>Por visita • Inclui adubação e limpeza</span>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Tabela de Preços Detalhada -->
+    <section class="section pricing" id="precos">
+        <div class="section-title">
+            <h2>Tabela de Preços 2026</h2>
+            <p>Valores de referência para o Grande Porto e Norte de Portugal (com IVA incluído)</p>
+        </div>
+
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Serviço</th>
+                    <th>Detalhe</th>
+                    <th>Preço Indicativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Manutenção Mensal</strong></td>
+                    <td>Jardim pequeno (&lt; 50 m²) – 1 visita/mês</td>
+                    <td class="price-value">50€ – 100€/mês</td>
+                </tr>
+                <tr>
+                    <td><strong>Manutenção Mensal</strong></td>
+                    <td>Jardim médio (50–150 m²)</td>
+                    <td class="price-value">100€ – 200€/mês</td>
+                </tr>
+                <tr>
+                    <td><strong>Manutenção Mensal</strong></td>
+                    <td>Jardim grande (150–500 m²)</td>
+                    <td class="price-value">200€ – 450€/mês</td>
+                </tr>
+                <tr>
+                    <td><strong>Corte de Relva</strong></td>
+                    <td>Jardim pequeno (&lt; 50 m²) – visita pontual</td>
+                    <td class="price-value">30€ – 55€</td>
+                </tr>
+                <tr>
+                    <td><strong>Corte de Relva</strong></td>
+                    <td>Jardim médio (50–150 m²)</td>
+                    <td class="price-value">50€ – 110€</td>
+                </tr>
+                <tr>
+                    <td><strong>Poda de Árvore</strong></td>
+                    <td>Até 5 metros de altura</td>
+                    <td class="price-value">80€ – 160€ / árvore</td>
+                </tr>
+                <tr>
+                    <td><strong>Poda de Árvore</strong></td>
+                    <td>5 a 10 metros (com equipamento)</td>
+                    <td class="price-value">150€ – 350€ / árvore</td>
+                </tr>
+                <tr>
+                    <td><strong>Poda de Sebes</strong></td>
+                    <td>Por hora de trabalho</td>
+                    <td class="price-value">25€ – 40€/hora</td>
+                </tr>
+                <tr>
+                    <td><strong>Limpeza de Terreno</strong></td>
+                    <td>Vegetação densa / mato</td>
+                    <td class="price-value">0,12€ – 0,20€ / m²</td>
+                </tr>
+                <tr>
+                    <td><strong>Sistema de Rega</strong></td>
+                    <td>Jardim pequeno (até 50 m²)</td>
+                    <td class="price-value">500€ – 1.100€</td>
+                </tr>
+                <tr>
+                    <td><strong>Sistema de Rega</strong></td>
+                    <td>Jardim médio (50–200 m²)</td>
+                    <td class="price-value">1.200€ – 2.800€</td>
+                </tr>
+                <tr>
+                    <td><strong>Mão de Obra</strong></td>
+                    <td>Jardineiro (hora)</td>
+                    <td class="price-value">15€ – 25€/hora</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="note">
+            <strong>Nota:</strong> Os valores apresentados são indicativos e baseados em preços de mercado atuais no Grande Porto (2026). 
+            O preço final depende da dimensão, complexidade, acesso e estado do espaço. 
+            Oferecemos <strong>orçamento gratuito e sem compromisso</strong> após visita ao local.
+        </p>
     </section>
 
     <!-- Sobre -->
@@ -539,7 +728,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2025 VerdePorto - Serviços de Jardinagem. Todos os direitos reservados.
+            © 2026 VerdePorto - Serviços de Jardinagem. Todos os direitos reservados.
         </div>
     </footer>
 
